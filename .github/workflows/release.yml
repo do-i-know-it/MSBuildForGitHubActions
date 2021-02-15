@@ -1,5 +1,6 @@
-name: msbuild
+name: Release
 on: push
+  branches: [main]
 jobs:
   build:
     runs-on: windows-2019
