@@ -14,17 +14,8 @@ jobs:
         uses: microsoft/setup-msbuild@v1.0.2
       
       - name: Show information for this action
-        env:
-          # WORKSPACE: github.workspace
-          # REPOSITORY: github.repository
         shell: cmd
         run: echo "${GITHUB_WORKSPACE}"
-        # run: |
-        #   cd
-        #   dir
-        #   echo ${WORKSPACE}
-        #   echo ${REPOSITORY}
-        #   echo $GITHUB_EVENT_NAME  
       
       - name: NUnit test with dotnet
         shell: cmd
