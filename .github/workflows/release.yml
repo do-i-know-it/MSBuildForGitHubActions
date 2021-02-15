@@ -15,16 +15,16 @@ jobs:
       
       - name: Show information for this action
         env:
-          WORKSPACE: github.workspace
-          REPOSITORY: github.repository
+          # WORKSPACE: github.workspace
+          # REPOSITORY: github.repository
         shell: cmd
+        run: echo "${GITHUB_WORKSPACE}"
         # run: |
         #   cd
         #   dir
         #   echo ${WORKSPACE}
         #   echo ${REPOSITORY}
-        #   echo $GITHUB_EVENT_NAME
-          run: echo "${GITHUB_WORKSPACE}"
+        #   echo $GITHUB_EVENT_NAME  
       
       - name: NUnit test with dotnet
         shell: cmd
