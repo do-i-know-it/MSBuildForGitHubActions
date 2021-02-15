@@ -18,10 +18,10 @@ jobs:
         run: |
           cd
           dir
-          echo "${{ secrets.GITHUB_WORKSPACE }}"
+          echo $GITHUB_WORKSPACE
           echo "${{ github.workspace }}"
-          echo "$GITHUB_REPOSITORY"
-          echo "$GITHUB_EVENT_NAME"
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_EVENT_NAME
       
       - name: NUnit test with dotnet
         shell: cmd
