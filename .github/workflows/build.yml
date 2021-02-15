@@ -1,7 +1,5 @@
 name: msbuild
 on: push
-  branches:
-  - main
 jobs:
   build:
     runs-on: windows-2019
