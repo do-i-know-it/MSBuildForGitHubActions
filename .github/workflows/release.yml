@@ -21,8 +21,8 @@ jobs:
         run: |
           cd
           dir
-          echo $WORKSPACE
-          echo REPOSITORY
+          echo ${WORKSPACE}
+          echo ${REPOSITORY}
           echo $GITHUB_EVENT_NAME
       
       - name: NUnit test with dotnet
