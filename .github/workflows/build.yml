@@ -7,8 +7,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Add msbuild to PATH
+      - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v1.0.2
-
-      - run: |
-          msbuild -version
+      
+      - name: Show current directory
+        shell: cmd
+        run: cd
+      
+      - name: Build with MSBuild
+        shell: cmd
+        run: msbuild -version
