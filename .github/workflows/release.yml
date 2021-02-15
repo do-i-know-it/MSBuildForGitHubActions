@@ -32,4 +32,4 @@ jobs:
 
       - name: Archive
         shell: cmd
-        run : del -s ./Builds/*.pdb & del -s ./Builds/*.deps.json & dir ./Builds
+        run : del -s ./Builds/*.pdb & del -s ./Builds/*.deps.json & cd ./Builds & dir
