@@ -29,3 +29,7 @@ jobs:
       - name: Build with dotnet
         shell: cmd
         run: dotnet msbuild ./MSBuildSampleForGitHubActions/MSBuildSampleForGitHubActions.csproj -t:build -restore -p:GenerateDocumentationFile=true;Configuration=Release;OutputPath=./Builds;AssemblyVersion=0.0.0.0;Version=0.0.0
+
+      - name: Archive
+        shell: cmd
+        run : del -s ./Builds/*.pdb & del -s ./Builds/*.deps.json & dir ./Builds
