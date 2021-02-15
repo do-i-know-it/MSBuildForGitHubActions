@@ -20,4 +20,4 @@ jobs:
       
       - name: Build with MSBuild
         shell: cmd
-        run: msbuild -version
+        run: msbuild ./MSBuildSampleForGitHubActions/MSBuildSampleForGitHubActions -t:build -restore -p:GenerateDocumentationFile=true;Configuration=Release;OutputPath=./Builds;AssemblyVersion=0.0.0.0;Version=0.0.0
