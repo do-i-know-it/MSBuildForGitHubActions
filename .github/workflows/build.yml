@@ -6,13 +6,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
+      
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v1.0.2
       
       - name: Show current directory
         shell: cmd
         run: cd
+      
+      - name: Show files in current directory
+        shell: cmd
+        run: dir
       
       - name: Build with MSBuild
         shell: cmd
