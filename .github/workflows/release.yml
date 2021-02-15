@@ -18,12 +18,13 @@ jobs:
           WORKSPACE: github.workspace
           REPOSITORY: github.repository
         shell: cmd
-        run: |
-          cd
-          dir
-          echo ${WORKSPACE}
-          echo ${REPOSITORY}
-          echo $GITHUB_EVENT_NAME
+        # run: |
+        #   cd
+        #   dir
+        #   echo ${WORKSPACE}
+        #   echo ${REPOSITORY}
+        #   echo $GITHUB_EVENT_NAME
+          run: echo "${GITHUB_WORKSPACE}"
       
       - name: NUnit test with dotnet
         shell: cmd
