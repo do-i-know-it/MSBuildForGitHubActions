@@ -15,7 +15,7 @@ jobs:
       
       - name: Show information for this action
         shell: cmd
-        run: echo "${GITHUB_WORKSPACE}"
+        run: echo %GITHUB_WORKSPACE%
       
       - name: NUnit test with dotnet
         shell: cmd
