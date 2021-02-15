@@ -19,6 +19,7 @@ jobs:
           cd
           dir
           echo "$GITHUB_WORKSPACE"
+          echo "${{ github.workspace }}"
           echo "$GITHUB_REPOSITORY"
           echo "$GITHUB_EVENT_NAME"
       
