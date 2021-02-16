@@ -6,6 +6,19 @@ on:
       - main
 
 jobs:
+  information:
+    runs-on: windows-2019
+    env:
+      HELLO_WORLD : "Hello world"
+    steps:
+      - name: Show information for this action
+        run: |
+          cd
+          dir
+          echo ${{ env.BUILD_FILE }}
+          echo ${{ github.workspace }}
+          echo %GITHUB_REPOSITORY%
+
   release:
     runs-on: windows-2019
     env:
@@ -20,35 +33,24 @@ jobs:
       - name: Add MSBuild to Path
         uses: microsoft/setup-msbuild@v1.0.2
       
-      - name: Show information for this action
+      - name: Test
         shell: cmd
-        env:
-          HOGE: "${{${{ github.workspace }}/${{ MSBuildSampleForGitHubActions/MSBuildSampleForGitHubActions.csproj }}}}"
+        run: dotnet test
+      
+      - name: Build
+        shell: cmd
         run: |
-          cd
-          dir
-          echo ${{ env.HOGE }}
-          echo ${{ github.workspace }}
-          echo %GITHUB_REPOSITORY%
-      
-      # - name: Test
-      #   shell: cmd
-      #   run: dotnet test
-      
-      # - name: Build
-      #   shell: cmd
-      #   run: |
-      #     dotnet msbuild ${{ github.workspace }}/${{ env.ENTRY_POINT_FILE }} ^
-      #     -t:build ^
-      #     -restore ^
-      #     -p:GenerateDocumentationFile=true^
-      #     ;Configuration=Release^
-      #     ;OutputPath=${{ github.workspace }}/${{ env.BUILD_FILE }}^
-      #     ;AssemblyVersion=${{ env.ASSEMBLY_VERSION }}^
-      #     ;Version=${{ env.PRODUCT_VERSION }}
+          dotnet msbuild ${{ github.workspace }}/${{ env.ENTRY_POINT_FILE }} ^
+          -t:build ^
+          -restore ^
+          -p:GenerateDocumentationFile=true^
+          ;Configuration=Release^
+          ;OutputPath=${{ github.workspace }}/${{ env.BUILD_FILE }}^
+          ;AssemblyVersion=${{ env.ASSEMBLY_VERSION }}^
+          ;Version=${{ env.PRODUCT_VERSION }}
 
-      # - name: Upload artifacts
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: MSBuildSampleForGitHubActions
-      #     path: ${{ github.workspace }}/${{ env.BUILD_FILE }}
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: MSBuildSampleForGitHubActions
+          path: ${{ github.workspace }}/${{ env.BUILD_FILE }}
