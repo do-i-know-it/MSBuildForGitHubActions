@@ -2,7 +2,8 @@ name: Construction for C#
 
 on:
   workflow_run:
-    workflows: ["Validation"]
+    workflows:
+      - Validation
     types:
       - completed
 
