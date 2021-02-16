@@ -2,7 +2,7 @@ name: Construction for C#
 
 on:
   workflow_run:
-    workflows: Validation
+    workflows: "Validation"
     types: completed
 
 env:
@@ -14,7 +14,6 @@ env:
 jobs:
   build:
     runs-on: windows-2019
-    needs: validation
     steps:
       - name: Checkout
         uses: actions/checkout@v2
