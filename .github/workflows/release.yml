@@ -25,7 +25,7 @@ jobs:
         run: |
           cd
           dir
-          echo %GITHUB_WORKSPACE%
+          echo ${{ env.GITHUB_WORKSPACE }}
           echo %GITHUB_REPOSITORY%
       
       - name: NUnit test with dotnet
@@ -43,8 +43,8 @@ jobs:
           AssemblyVersion=%ASSEMBLY_VERSION%; ^
           Version=%PRODUCT_VERSION%
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: MSBuildSampleForGitHubActions
-          path: ${{ %GITHUB_WORKSPACE%/%BUILD_FILE% }}
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: MSBuildSampleForGitHubActions
+      #     path: ${{ env.GITHUB_WORKSPACE/env.BUILD_FILE }}
