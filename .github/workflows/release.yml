@@ -18,7 +18,7 @@ jobs:
       - name: Show information for this action
         shell: cmd
         env:
-          WORKSPACE: ${{ %GITHUB_WORKSPACE% }}
+          WORKSPACE: ${{ GITHUB_WORKSPACE }}
         run: |
           cd
           dir
