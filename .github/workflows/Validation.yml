@@ -9,7 +9,7 @@ jobs:
   test:
     runs-on: windows-2019
     steps:
-      - run : echo "test"
+      - run : exit 1
       # - name: Checkout
       #   uses: actions/checkout@v2
       
