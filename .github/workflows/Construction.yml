@@ -2,10 +2,8 @@ name: Construction
 
 on:
   workflow_run:
-    workflows:
-      - Validation
-    types:
-      - completed
+    workflows: Validation
+    types: completed
 
 env:
   ENTRY_POINT_FILE: MSBuildSampleForGitHubActions/MSBuildSampleForGitHubActions.csproj
@@ -18,29 +16,28 @@ jobs:
     runs-on: windows-2019
     if: github.event.workflow_run.conclusion == 'success'
     steps:
-      - run: echo %ENTRY_POINT_FILE%
-      # - name: Checkout
-      #   uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
       
-      # - name: Add MSBuild to Path
-      #   uses: microsoft/setup-msbuild@v1.0.2
+      - name: Add MSBuild to Path
+        uses: microsoft/setup-msbuild@v1.0.2
 
-      # - name: Restore solution
-      #   shell: cmd
-      #   run: dotnet restore ${{ github.workspace }}/${{ env.ENTRY_POINT_FILE }}
+      - name: Restore solution
+        shell: cmd
+        run: dotnet restore ${{ github.workspace }}/${{ env.ENTRY_POINT_FILE }}
 
-      # - name: Build artifacts
-      #   shell: cmd
-      #   run: |
-      #     dotnet msbuild ${{ github.workspace }}/${{ env.ENTRY_POINT_FILE }} ^
-      #     -p:GenerateDocumentationFile=true^
-      #     ;Configuration=Release^
-      #     ;OutputPath=${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}^
-      #     ;AssemblyVersion=${{ env.PRODUCT_VERSION }}.0^
-      #     ;Version=${{ env.PRODUCT_VERSION }}
+      - name: Build artifacts
+        shell: cmd
+        run: |
+          dotnet msbuild ${{ github.workspace }}/${{ env.ENTRY_POINT_FILE }} ^
+          -p:GenerateDocumentationFile=true^
+          ;Configuration=Release^
+          ;OutputPath=${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}^
+          ;AssemblyVersion=${{ env.PRODUCT_VERSION }}.0^
+          ;Version=${{ env.PRODUCT_VERSION }}
 
-      # - name: Upload artifacts
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: ${{ env.ARTIFACT_FILE }}
-      #     path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.ARTIFACT_FILE }}
+          path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
