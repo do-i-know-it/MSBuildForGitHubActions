@@ -1,31 +1,19 @@
-name: Release
+name: Publication for C#
 
 on:
   push:
     branches: 
       - main
 
-jobs:
-  information:
-    runs-on: windows-2019
-    env:
-      HELLO_WORLD : "Hello world"
-    steps:
-      - name: Show information for this action
-        run: |
-          cd
-          dir
-          echo ${{ env.BUILD_FILE }}
-          echo ${{ github.workspace }}
-          echo %GITHUB_REPOSITORY%
+env:
+  ENTRY_POINT_FILE: MSBuildSampleForGitHubActions/MSBuildSampleForGitHubActions.csproj
+  ARTIFACT_FILE: MSBuildSampleForGitHubActions
+  ARTIFACT_DIRECTORY: Builds
+  PRODUCT_VERSION : 0.0.0
 
-  release:
+jobs:
+  validation:
     runs-on: windows-2019
-    env:
-      ENTRY_POINT_FILE: MSBuildSampleForGitHubActions/MSBuildSampleForGitHubActions.csproj
-      BUILD_FILE: Builds
-      ASSEMBLY_VERSION : 0.0.0.0
-      PRODUCT_VERSION : 0.0.0
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -36,6 +24,16 @@ jobs:
       - name: Test
         shell: cmd
         run: dotnet test
+
+  construction:
+    runs-on: windows-2019
+    needs: validation
+    steps:
+      # - name: Checkout
+      #   uses: actions/checkout@v2
+      
+      # - name: Add MSBuild to Path
+      #   uses: microsoft/setup-msbuild@v1.0.2
       
       - name: Build
         shell: cmd
@@ -45,12 +43,12 @@ jobs:
           -restore ^
           -p:GenerateDocumentationFile=true^
           ;Configuration=Release^
-          ;OutputPath=${{ github.workspace }}/${{ env.BUILD_FILE }}^
-          ;AssemblyVersion=${{ env.ASSEMBLY_VERSION }}^
+          ;OutputPath=${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}^
+          ;AssemblyVersion=${{ env.PRODUCT_VERSION }}.0^
           ;Version=${{ env.PRODUCT_VERSION }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: MSBuildSampleForGitHubActions
-          path: ${{ github.workspace }}/${{ env.BUILD_FILE }}
+          name: ${{ env.MSBuildSampleForGitHubActions }}
+          path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
