@@ -1,9 +1,9 @@
-name: Publication for C#
+name: Construction for C#
 
 on:
-  push:
-    branches: 
-      - main
+  workflow_run:
+    workflows: Validation
+    types: completed
 
 env:
   ENTRY_POINT_FILE: MSBuildSampleForGitHubActions/MSBuildSampleForGitHubActions.csproj
@@ -12,24 +12,7 @@ env:
   PRODUCT_VERSION : 0.0.0
 
 jobs:
-  validation:
-    runs-on: windows-2019
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      
-      - name: Add MSBuild to Path
-        uses: microsoft/setup-msbuild@v1.0.2
-      
-      - name: Restore solution
-        shell: cmd
-        run: dotnet restore
-
-      - name: Test
-        shell: cmd
-        run: dotnet test
-
-  construction:
+  build:
     runs-on: windows-2019
     needs: validation
     steps:
@@ -50,7 +33,7 @@ jobs:
           -p:GenerateDocumentationFile=true^
           ;Configuration=Release^
           ;OutputPath=${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}^
-          ;AssemblyVersion=${{ env.PRODUCT_VERSION }}.%date:~0,4%%date:~5,2%%date:~8,2%%%time: =0%:~0,2%%%time: =0%:~3,2%%%time: =0%:~6,2%^
+          ;AssemblyVersion=${{ env.PRODUCT_VERSION }}.0^
           ;Version=${{ env.PRODUCT_VERSION }}
 
       - name: Upload artifacts
