@@ -23,7 +23,7 @@ jobs:
       - name: Show information for this action
         shell: cmd
         env:
-          HOGE: ${{${{ github.workspace }}/${{ MSBuildSampleForGitHubActions/MSBuildSampleForGitHubActions.csproj }}}}
+          HOGE: "${{${{ github.workspace }}/${{ MSBuildSampleForGitHubActions/MSBuildSampleForGitHubActions.csproj }}}}"
         run: |
           cd
           dir
