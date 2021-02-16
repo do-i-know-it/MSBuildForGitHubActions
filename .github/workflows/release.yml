@@ -50,7 +50,7 @@ jobs:
           -p:GenerateDocumentationFile=true^
           ;Configuration=Release^
           ;OutputPath=${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}^
-          ;AssemblyVersion=${{ env.PRODUCT_VERSION }}.0^
+          ;AssemblyVersion=${{ env.PRODUCT_VERSION }}.%date:~0,4%%date:~5,2%%date:~8,2%%%time: =0%:~0,2%%%time: =0%:~3,2%%%time: =0%:~6,2%^
           ;Version=${{ env.PRODUCT_VERSION }}
 
       - name: Upload artifacts
