@@ -29,23 +29,24 @@ jobs:
           echo ${{ github.workspace }}
           echo %GITHUB_REPOSITORY%
       
-      - name: NUnit test with dotnet
+      - name: Test
         shell: cmd
         run: dotnet test
       
       - name: Build
         shell: cmd
         run: |
-          dotnet msbuild -t:build -restore ^
-          %GITHUB_WORKSPACE%/%ENTRY_POINT_FILE% ^
-          -p:GenerateDocumentationFile=true; ^
-          Configuration=Release; ^
-          OutputPath=%GITHUB_WORKSPACE%/%BUILD_FILE%; ^
-          AssemblyVersion=%ASSEMBLY_VERSION%; ^
-          Version=%PRODUCT_VERSION%
+          dotnet msbuild ${{ github.workspace }}/${{ env.ENTRY_POINT_FILE }} ^
+          -t:build ^
+          -restore ^
+          -p:GenerateDocumentationFile=true^
+          ;Configuration=Release^
+          ;OutputPath=${{ github.workspace }}/${{ env.BUILD_FILE }}^
+          ;AssemblyVersion=${{ env.ASSEMBLY_VERSION }}^
+          ;Version=${{ env.PRODUCT_VERSION }}
 
-      # - name: Upload artifacts
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: MSBuildSampleForGitHubActions
-      #     path: ${{ env.GITHUB_WORKSPACE/env.BUILD_FILE }}
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: MSBuildSampleForGitHubActions
+          path: ${{ github.workspace }}/${{ env.BUILD_FILE }}
