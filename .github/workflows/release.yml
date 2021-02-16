@@ -43,7 +43,7 @@ jobs:
         shell: cmd
         run: dotnet restore ${{ github.workspace }}/${{ env.ENTRY_POINT_FILE }}
 
-      - name: Build
+      - name: Build artifacts
         shell: cmd
         run: |
           dotnet msbuild ${{ github.workspace }}/${{ env.ENTRY_POINT_FILE }} ^
@@ -56,5 +56,5 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.MSBuildSampleForGitHubActions }}
+          name: ${{ env.ARTIFACT_FILE }}
           path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
