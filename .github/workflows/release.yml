@@ -25,7 +25,8 @@ jobs:
         run: |
           cd
           dir
-          echo ${{ env.GITHUB_WORKSPACE }}
+          echo ${{ env.BUILD_FILE }}
+          echo ${{ github.workspace }}
           echo %GITHUB_REPOSITORY%
       
       - name: NUnit test with dotnet
