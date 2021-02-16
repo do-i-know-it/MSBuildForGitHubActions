@@ -1,4 +1,4 @@
-name: Construction for C#
+name: Construction
 
 on:
   workflow_run:

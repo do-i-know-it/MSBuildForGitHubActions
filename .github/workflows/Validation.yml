@@ -1,4 +1,4 @@
-name: Validation for C#
+name: Validation
 
 on:
   push:
