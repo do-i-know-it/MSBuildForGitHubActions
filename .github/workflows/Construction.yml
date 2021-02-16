@@ -16,7 +16,7 @@ env:
 jobs:
   build:
     runs-on: windows-2019
-    if: ${{ github.event.workflow_run.conclusion == "success" }}
+    if: github.event.workflow_run.conclusion == "success"
     steps:
       - run: echo %ENTRY_POINT_FILE%
       # - name: Checkout
