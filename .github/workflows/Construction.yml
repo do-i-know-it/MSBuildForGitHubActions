@@ -1,9 +1,10 @@
 name: Construction for C#
 
 on:
-  push:
-  pull_request:
-    types: [opened, synchronize, reopened]
+  workflow_run:
+    workflows: ["Validation"]
+    types:
+      - completed
 
 env:
   ENTRY_POINT_FILE: MSBuildSampleForGitHubActions/MSBuildSampleForGitHubActions.csproj
