@@ -21,6 +21,10 @@ jobs:
       - name: Add MSBuild to Path
         uses: microsoft/setup-msbuild@v1.0.2
       
+      - name: Restore solution
+        shell: cmd
+        run: dotnet msbuild t:restore
+
       - name: Test
         shell: cmd
         run: dotnet test
@@ -35,20 +39,22 @@ jobs:
       - name: Add MSBuild to Path
         uses: microsoft/setup-msbuild@v1.0.2
 
+      - name: Restore solution
+        shell: cmd
+        run: dotnet msbuild t:restore
+
       - name: Build
         shell: cmd
         run: |
           dotnet msbuild ${{ github.workspace }}/${{ env.ENTRY_POINT_FILE }} ^
-          -t:build ^
-          -restore ^
           -p:GenerateDocumentationFile=true^
           ;Configuration=Release^
           ;OutputPath=${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}^
           ;AssemblyVersion=${{ env.PRODUCT_VERSION }}.0^
           ;Version=${{ env.PRODUCT_VERSION }}
 
-      # - name: Upload artifacts
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: ${{ env.MSBuildSampleForGitHubActions }}
-      #     path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.MSBuildSampleForGitHubActions }}
+          path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
