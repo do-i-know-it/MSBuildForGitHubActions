@@ -23,7 +23,7 @@ jobs:
       
       - name: Restore solution
         shell: cmd
-        run: dotnet msbuild t:restore
+        run: dotnet restore
 
       - name: Test
         shell: cmd
@@ -41,7 +41,7 @@ jobs:
 
       - name: Restore solution
         shell: cmd
-        run: dotnet msbuild t:restore
+        run: dotnet restore ${{ github.workspace }}/${{ env.ENTRY_POINT_FILE }}
 
       - name: Build
         shell: cmd
