@@ -29,12 +29,12 @@ jobs:
     runs-on: windows-2019
     needs: validation
     steps:
-      # - name: Checkout
-      #   uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
       
-      # - name: Add MSBuild to Path
-      #   uses: microsoft/setup-msbuild@v1.0.2
-      
+      - name: Add MSBuild to Path
+        uses: microsoft/setup-msbuild@v1.0.2
+
       - name: Build
         shell: cmd
         run: |
@@ -47,8 +47,8 @@ jobs:
           ;AssemblyVersion=${{ env.PRODUCT_VERSION }}.0^
           ;Version=${{ env.PRODUCT_VERSION }}
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ env.MSBuildSampleForGitHubActions }}
-          path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: ${{ env.MSBuildSampleForGitHubActions }}
+      #     path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
