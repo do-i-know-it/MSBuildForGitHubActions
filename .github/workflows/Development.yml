@@ -44,6 +44,9 @@ jobs:
   construction:
     runs-on: windows-2019
     needs: validation
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -57,7 +60,7 @@ jobs:
           dotnet msbuild ${{ github.workspace }}/${{ env.BUILD_FILE }} -p:^
           EntryPointFilePath=${{ github.workspace }}/${{ env.ENTRY_POINT_DIRECTORY }}/${{ env.ENTRY_POINT_FILE }}^
           ;OutputPath=${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}^
-          ;Configuration=$(Configuration)^
+          ;Configuration=${{ matrix.configuration }}^
           ;BuildVersion=${{ env.BUILD_VERSION }}^
       
       - name: Upload artifacts
