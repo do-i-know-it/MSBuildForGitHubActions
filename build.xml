@@ -1,0 +1,29 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Validation">
+    <PropertyGroup>
+        <EntryPointFilePath></EntryPointFilePath>
+        <OutputPath></OutputPath>
+        <Configuration></Configuration>
+        <BuildVersion></BuildVersion>
+        <ProductVersion>0.0.0</ProductVersion>
+    </PropertyGroup>
+
+    <Target Name="Validation">
+        <Error Condition="'$(EntryPointFilePath)' == ''" Text="`EntryPointFilePath` is empty."/>
+        <Error Condition="'$(OutputPath)' == ''" Text="`OutputPath` is empty."/>
+        <Error Condition="'$(Configuration)' == ''" Text="`Configuration` is empty."/>
+        <Error Condition="'$(Configuration)' != 'Debug' And '$(Configuration)' != 'Release'" Text="`Configuration` is invalid: $(Configuration)."/>
+        <Error Condition="'$(BuildVersion)' == ''" Text="`BuildVersion` is empty."/>
+    </Target>
+
+    <Target Name="Construction" AfterTargets="Validation">
+        <MSBuild Targets="restore" Projects="$(EntryPointFilePath)" />
+        
+        <MSBuild Projects="$(EntryPointFilePath)"
+            Properties="GenerateDocumentationFile=true;
+                        OutputPath=$(OutputPath);
+                        Configuration=$(Configuration);
+                        Version=$(ProductVersion);
+                        AssemblyVersion=$(ProductVersion).$(BuildVersion)"
+        />
+    </Target>
+</Project>

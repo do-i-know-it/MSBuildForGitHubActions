@@ -1,0 +1,66 @@
+name: Development
+
+on:
+  push:
+    branches:    
+      - '!main'
+      - '!develop'
+      - '!release/**'
+  pull_request:
+    branches:
+      - develop
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+env:
+  BUILD_FILE: build.xml
+  ENTRY_POINT_DIRECTORY: MSBuildSampleForGitHubActions
+  ENTRY_POINT_FILE: MSBuildSampleForGitHubActions.csproj
+  ARTIFACT_FILE: MSBuildSampleForGitHubActions
+  ARTIFACT_DIRECTORY: ARTIFACTS
+  BUILD_VERSION : 0
+
+jobs:
+  validation:
+    runs-on: windows-2019
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: Add MSBuild to Path
+        uses: microsoft/setup-msbuild@v1.0.2
+      
+      - name: Restore solution
+        shell: cmd
+        run: dotnet restore
+
+      - name: Test solution
+        shell: cmd
+        run: dotnet test
+  
+  construction:
+    runs-on: windows-2019
+    needs: validation
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: Add MSBuild to Path
+        uses: microsoft/setup-msbuild@v1.0.2
+
+      - name: Build artifacts
+        shell: cmd
+        run : |
+          dotnet msbuild ${{ github.workspace }}/${{ BUILD_FILE }} -p:^
+          EntryPointFilePath=${{ github.workspace }}/${{ env.ENTRY_POINT_DIRECTORY }}/${{ env.ENTRY_POINT_FILE }}^
+          ;OutputPath=${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}^
+          ;Configuration=$(Configuration)^
+          ;BuildVersion=${{ env.BUILD_VERSION }}^
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.ARTIFACT_FILE }}
+          path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
