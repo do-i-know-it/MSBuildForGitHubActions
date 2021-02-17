@@ -3,10 +3,10 @@ name: Development
 on:
   push:
     branches:    
+      - '**'
       - '!main'
       - '!develop'
       - '!release/**'
-      - '**'
   pull_request:
     branches:
       - develop
