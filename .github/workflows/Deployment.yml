@@ -23,9 +23,11 @@ env:
 
 jobs:
   information:
-    runs-on: windows-2019
+    runs-on: ubuntu-latest
+    env: 
+      REPOSITORY_NAME: ${GITHUB_REPOSITORY#*\/}
     steps:
-      - run: echo %GITHUB_REPOSITORY#*\/%
+      - run: echo $REPOSITORY_NAME
   # validation:
   #   runs-on: windows-2019
   #   steps:
