@@ -1,18 +1,18 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Validation">
     <PropertyGroup>
-        <EntryPointFilePath></EntryPointFilePath>
+        <InputPath></InputPath>
         <OutputPath></OutputPath>
         <Configuration></Configuration>
-        <BuildVersion></BuildVersion>
+        <EntryPointFilePath>$(InputPath)/MSBuildSampleForGitHubActions/MSBuildSampleForGitHubActions.csproj</EntryPointFilePath>
         <ProductVersion>0.0.0</ProductVersion>
+        <BuildVersion>0</BuildVersion>
     </PropertyGroup>
 
     <Target Name="Validation">
-        <Error Condition="'$(EntryPointFilePath)' == ''" Text="`EntryPointFilePath` is empty."/>
+        <Error Condition="'$(InputPath)' == ''" Text="`InputPath` is empty."/>
         <Error Condition="'$(OutputPath)' == ''" Text="`OutputPath` is empty."/>
         <Error Condition="'$(Configuration)' == ''" Text="`Configuration` is empty."/>
         <Error Condition="'$(Configuration)' != 'Debug' And '$(Configuration)' != 'Release'" Text="`Configuration` is invalid: $(Configuration)."/>
-        <Error Condition="'$(BuildVersion)' == ''" Text="`BuildVersion` is empty."/>
     </Target>
 
     <Target Name="Construction" AfterTargets="Validation">
