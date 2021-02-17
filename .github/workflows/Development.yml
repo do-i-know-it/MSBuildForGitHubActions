@@ -54,7 +54,7 @@ jobs:
       - name: Build artifacts
         shell: cmd
         run : |
-          dotnet msbuild ${{ github.workspace }}/${{ BUILD_FILE }} -p:^
+          dotnet msbuild ${{ github.workspace }}/${{ env.BUILD_FILE }} -p:^
           EntryPointFilePath=${{ github.workspace }}/${{ env.ENTRY_POINT_DIRECTORY }}/${{ env.ENTRY_POINT_FILE }}^
           ;OutputPath=${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}^
           ;Configuration=$(Configuration)^
