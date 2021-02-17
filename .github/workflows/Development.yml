@@ -60,5 +60,5 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.ARTIFACT_FILE }}_${{ env.CONFIGURATION }}
+          name: ${{ env.ARTIFACT_FILE }}${{ env.CONFIGURATION }}
           path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
