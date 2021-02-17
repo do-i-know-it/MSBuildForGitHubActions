@@ -42,22 +42,23 @@ jobs:
       CONFIGURATION: Release
       ARTIFACT_FILE: MSBuildSampleForGitHubActions
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - run: echo %GITHUB_REPOSITORY:${{ github.repository_owner }}=%
+      # - name: Checkout
+      #   uses: actions/checkout@v2
       
-      - name: Add MSBuild to Path
-        uses: microsoft/setup-msbuild@v1.0.2
+      # - name: Add MSBuild to Path
+      #   uses: microsoft/setup-msbuild@v1.0.2
 
-      - name: Build artifacts
-        shell: cmd
-        run : |
-          dotnet msbuild %GITHUB_WORKSPACE%/%BUILD_FILE%.xml -p:^
-          InputPath=%GITHUB_WORKSPACE%^
-          ;OutputPath=%GITHUB_WORKSPACE%/%ARTIFACT_DIRECTORY%^
-          ;Configuration=%CONFIGURATION%
+      # - name: Build artifacts
+      #   shell: cmd
+      #   run : |
+      #     dotnet msbuild %GITHUB_WORKSPACE%/%BUILD_FILE%.xml -p:^
+      #     InputPath=%GITHUB_WORKSPACE%^
+      #     ;OutputPath=%GITHUB_WORKSPACE%/%ARTIFACT_DIRECTORY%^
+      #     ;Configuration=%CONFIGURATION%
       
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: %ARTIFACT_FILE%${{ env.CONFIGURATION }}
-          path: github.workspace/env.ARTIFACT_DIRECTORY
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: %ARTIFACT_FILE%${{ env.CONFIGURATION }}
+      #     path: github.workspace/env.ARTIFACT_DIRECTORY
