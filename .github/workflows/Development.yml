@@ -16,12 +16,10 @@ on:
       - reopened
 
 env:
-  BUILD_FILE: build.xml
-  ENTRY_POINT_DIRECTORY: MSBuildSampleForGitHubActions
-  ENTRY_POINT_FILE: MSBuildSampleForGitHubActions.csproj
-  ARTIFACT_FILE: MSBuildSampleForGitHubActions
+  BUILD_FILE: build
   ARTIFACT_DIRECTORY: ARTIFACTS
-  BUILD_VERSION : 0
+  ARTIFACT_FILE: MSBuildSampleForGitHubActions
+  CONFIGURATION: Debug
 
 jobs:
   validation:
@@ -44,9 +42,6 @@ jobs:
   construction:
     runs-on: windows-2019
     needs: validation
-    strategy:
-      matrix:
-        configuration: [Debug, Release]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -57,14 +52,13 @@ jobs:
       - name: Build artifacts
         shell: cmd
         run : |
-          dotnet msbuild ${{ github.workspace }}/${{ env.BUILD_FILE }} -p:^
-          EntryPointFilePath=${{ github.workspace }}/${{ env.ENTRY_POINT_DIRECTORY }}/${{ env.ENTRY_POINT_FILE }}^
+          dotnet msbuild ${{ github.workspace }}/${{ env.BUILD_FILE }}.xml -p:^
+          InputPath=${{ github.workspace }}^
           ;OutputPath=${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}^
-          ;Configuration=${{ matrix.configuration }}^
-          ;BuildVersion=${{ env.BUILD_VERSION }}^
+          ;Configuration=${{ env.CONFIGURATION }}^
       
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.ARTIFACT_FILE }}
+          name: ${{ env.ARTIFACT_FILE }}_${{ env.CONFIGURATION }}
           path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
