@@ -15,12 +15,6 @@ on:
       - synchronize
       - reopened
 
-env:
-  BUILD_FILE: build
-  ARTIFACT_DIRECTORY: ARTIFACTS
-  ARTIFACT_FILE: MSBuildSampleForGitHubActions
-  CONFIGURATION: Debug
-
 jobs:
   validation:
     runs-on: windows-2019
@@ -39,26 +33,31 @@ jobs:
         shell: cmd
         run: dotnet test
   
-  # construction:
-  #   runs-on: windows-2019
-  #   needs: validation
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
+  construction:
+    runs-on: windows-2019
+    needs: validation
+    env:
+      BUILD_FILE: build
+      ARTIFACT_DIRECTORY: ARTIFACTS
+      CONFIGURATION: Debug
+      ARTIFACT_FILE: MSBuildSampleForGitHubActions
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       
-  #     - name: Add MSBuild to Path
-  #       uses: microsoft/setup-msbuild@v1.0.2
+      - name: Add MSBuild to Path
+        uses: microsoft/setup-msbuild@v1.0.2
 
-  #     - name: Build artifacts
-  #       shell: cmd
-  #       run : |
-  #         dotnet msbuild ${{ github.workspace }}/${{ env.BUILD_FILE }}.xml -p:^
-  #         InputPath=${{ github.workspace }}^
-  #         ;OutputPath=${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}^
-  #         ;Configuration=${{ env.CONFIGURATION }}^
+      - name: Build artifacts
+        shell: cmd
+        run : |
+          dotnet msbuild ${{ github.workspace }}/${{ env.BUILD_FILE }}.xml -p:^
+          InputPath=${{ github.workspace }}^
+          ;OutputPath=${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}^
+          ;Configuration=${{ env.CONFIGURATION }}^
       
-  #     - name: Upload artifacts
-  #       uses: actions/upload-artifact@v2
-  #       with:
-  #         name: ${{ env.ARTIFACT_FILE }}${{ env.CONFIGURATION }}
-  #         path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.ARTIFACT_FILE }}${{ env.CONFIGURATION }}
+          path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
