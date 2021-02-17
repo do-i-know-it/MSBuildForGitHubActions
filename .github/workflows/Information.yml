@@ -16,3 +16,4 @@ jobs:
           dir
           git status
           git branch
+          echo ${{ github.ref }}
