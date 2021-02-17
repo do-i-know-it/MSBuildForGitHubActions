@@ -1,27 +1,27 @@
-name: Validation
+# name: Validation
 
-on:
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
-  push:
+# on:
+#   pull_request:
+#     types:
+#       - opened
+#       - synchronize
+#       - reopened
+#   push:
 
-jobs:
-  test:
-    runs-on: windows-2019
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+# jobs:
+#   test:
+#     runs-on: windows-2019
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v2
       
-      - name: Add MSBuild to Path
-        uses: microsoft/setup-msbuild@v1.0.2
+#       - name: Add MSBuild to Path
+#         uses: microsoft/setup-msbuild@v1.0.2
       
-      - name: Restore solution
-        shell: cmd
-        run: dotnet restore
+#       - name: Restore solution
+#         shell: cmd
+#         run: dotnet restore
 
-      - name: Test solution
-        shell: cmd
-        run: dotnet test
+#       - name: Test solution
+#         shell: cmd
+#         run: dotnet test
