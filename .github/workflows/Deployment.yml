@@ -27,7 +27,7 @@ jobs:
   
   construction:
     runs-on: windows-2019
-    needs: validation
+    # needs: validation
     env:
       BUILD_FILE: build
       ARTIFACT_DIRECTORY: ARTIFACTS
@@ -68,8 +68,9 @@ jobs:
           name: ${{ github.workflow }}
 
       - name: hoge
-        run : ls -a ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
-
+        run : |
+        ls -a ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
+        
       # - name: Create release
       #   id: create_release
       #   uses: actions/create-release@v1.0.0
