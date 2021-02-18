@@ -2,6 +2,8 @@ name: Deployment
 
 on:
   push:
+    branches:
+      - main
     tags:
       - version/*
   pull_request:
@@ -17,16 +19,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       
-      - name: Add MSBuild to Path
-        uses: microsoft/setup-msbuild@v1.0.2
+      # - name: Add MSBuild to Path
+      #   uses: microsoft/setup-msbuild@v1.0.2
       
-      - name: Restore solution
-        shell: cmd
-        run: dotnet restore
+      # - name: Restore solution
+      #   shell: cmd
+      #   run: dotnet restore
 
-      - name: Test solution
-        shell: cmd
-        run: dotnet test
+      # - name: Test solution
+      #   shell: cmd
+      #   run: dotnet test
   
   construction:
     runs-on: windows-2019
@@ -45,19 +47,19 @@ jobs:
 
       - name: Calculate build number
         shell: cmd
-        run : set -a BUILD_NUMBER=${{ github.run_id }}%%${{ env.BUILD_NUMBER_MAX }}
+        run : set -a BUILD_NUMBER=${{ github.run_id }}%%${{ env.BUILD_NUMBER_MAX }} & echo %BUILD_NUMBER%
 
-      - name: Build artifacts
-        shell: cmd
-        run : |
-          dotnet msbuild ${{ github.workspace }}/${{ env.BUILD_FILE }}.xml -p:^
-          InputPath=${{ github.workspace }}^
-          ;OutputPath=${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}^
-          ;Configuration=${{ env.CONFIGURATION }}^
-          ;BuildNumber=${{ env.BUILD_NUMBER }}
+      # - name: Build artifacts
+      #   shell: cmd
+      #   run : |
+      #     dotnet msbuild ${{ github.workspace }}/${{ env.BUILD_FILE }}.xml -p:^
+      #     InputPath=${{ github.workspace }}^
+      #     ;OutputPath=${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}^
+      #     ;Configuration=${{ env.CONFIGURATION }}^
+      #     ;BuildNumber=${{ env.BUILD_NUMBER }}
       
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
-          name: ${{ github.workflow }}_${{ github.run_number }}_${{ env.CONFIGURATION }}
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
+      #     name: ${{ github.workflow }}_${{ github.run_number }}_${{ env.CONFIGURATION }}
