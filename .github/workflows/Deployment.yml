@@ -2,8 +2,7 @@ name: Deployment
 
 on:
   push:
-    branches:
-      - main
+    branches: main
     tags:
       - version/*
   pull_request:
@@ -33,10 +32,6 @@ jobs:
   construction:
     runs-on: windows-2019
     needs: validation
-    env:
-      BUILD_FILE: build
-      ARTIFACT_DIRECTORY: ARTIFACTS
-      CONFIGURATION: Release
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -46,10 +41,13 @@ jobs:
 
       - name: Configure information
         env:
-          MAX_COUNT: 65535
+          BUILD_FILE: build
+          MAX_BUILD_NUMBER: 65535
+          ARTIFACT_DIRECTORY: ARTIFACTS
+          CONFIGURATION: Release
         shell: cmd
         run : |
-          set /a BUILD_NUMBER=%GITHUB_RUN_NUMBER%%%MAX_COUNT%
+          set /a BUILD_NUMBER=%GITHUB_RUN_NUMBER%%%MAX_BUILD_NUMBER%
           echo BUILD_NUMBER=%BUILD_NUMBER%>> %GITHUB_ENV%
           set REPOSITORY_NAME=%GITHUB_REPOSITORY:${{ github.repository_owner }}/=%
           echo REPOSITORY_NAME=%REPOSITORY_NAME%>> %GITHUB_ENV%
