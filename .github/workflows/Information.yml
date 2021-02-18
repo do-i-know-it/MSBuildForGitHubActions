@@ -20,8 +20,7 @@ jobs:
           MAX_COUNT: 65535
         shell: cmd
         run: |
-          echo %GITHUB_RUN_ID%%%MAX_COUNT%
-          set /a BUILD_NUMBER=%GITHUB_RUN_ID%%%MAX_COUNT%
+          set /a BUILD_NUMBER=%GITHUB_RUN_NUMBER%%%MAX_COUNT%
           echo BUILD_NUMBER=%BUILD_NUMBER% >> %GITHUB_ENV%
           echo REPOSITORY_NAME=%GITHUB_REPOSITORY:${{ github.repository_owner }}/=% >> %GITHUB_ENV%
       - name: Display
