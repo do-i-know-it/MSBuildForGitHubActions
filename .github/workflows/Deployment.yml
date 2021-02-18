@@ -47,7 +47,7 @@ jobs:
 
       - name: Calculate build number
         shell: cmd
-        run : set -a BUILD_NUMBER=${{ github.run_id }}%%${{ env.BUILD_NUMBER_MAX }} & echo %BUILD_NUMBER%
+        run : set -a BUILD_NUMBER=${{ github.run_id }}%${{ env.BUILD_NUMBER_MAX }} & echo %BUILD_NUMBER%
 
       # - name: Build artifacts
       #   shell: cmd
