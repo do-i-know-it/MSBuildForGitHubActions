@@ -4,11 +4,9 @@ on: push
 
 jobs:
   information:
-      runs-on: ubuntu-latest
-      steps:
-        - run: |
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        run : |
           echo $GITHUB_RUN_ID
-          # echo $GITHUB_RUN_NUMBER
-          # echo $GITHUB_ACTOR
-          # echo $GITHUB_REPOSITORY
-          # echo ${{ github.repository_owner }}
+          
