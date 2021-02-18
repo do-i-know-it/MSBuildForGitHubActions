@@ -22,4 +22,5 @@ jobs:
         run: |
           set /a BUILD_NUMBER=%GITHUB_RUN_ID%%%MAX_COUNT%
       - name: Display
+        shell: cmd
         run: echo %BUILD_NUMBER%
