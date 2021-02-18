@@ -69,7 +69,7 @@ jobs:
 
       - name: hoge
         run : |
-        ls -a ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
+          ls -a ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
         
       # - name: Create release
       #   id: create_release
