@@ -60,9 +60,10 @@ jobs:
           InputPath=%GITHUB_WORKSPACE%^
           ;OutputPath=%GITHUB_WORKSPACE%/%ARTIFACT_DIRECTORY%^
           ;Configuration=%CONFIGURATION%^
+          ;BuildNumber=%BUILD_NUMBER%
             
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
-          name: ${{ github.workflow }}_${{ github.run_number }}_${{ env.CONFIGURATION }}
+          name: ${{ env.REPOSITORY_NAME }}${{ github.workflow }}_${{ github.run_number }}_${{ env.CONFIGURATION }}
