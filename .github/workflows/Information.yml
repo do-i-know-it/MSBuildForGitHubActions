@@ -18,6 +18,6 @@ jobs:
       - name: Calculate
         env:
           MAX_COUNT: 65535
-      - run: |
+        run: |
         set -a BUILD_NUMBER=%GITHUB_RUN_ID%%%%MAX_COUNT%
         echo %BUILD_NUMBER%
