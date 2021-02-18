@@ -20,8 +20,7 @@ jobs:
       - name: Calculate
         shell: cmd
         run: |
-          set /a BUILD_NUMBER=%GITHUB_RUN_ID%%%MAX_COUNT%
-          echo %BUILD_NUMBER%
+          set /a BUILD_NUMBER=${{ github.run_id }}%${{ env.MAX_COUNT }}
           echo BUILD_NUMBER=%BUILD_NUMBER% >> %GITHUB_ENV%
       - name: Display
         shell: cmd
