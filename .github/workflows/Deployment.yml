@@ -2,8 +2,6 @@ name: Deployment
 
 on:
   push:
-    branches:
-      - main
     tags:
       - version/*
   pull_request:
@@ -32,7 +30,7 @@ jobs:
   
   construction:
     runs-on: windows-2019
-    # needs: validation
+    needs: validation
     env:
       BUILD_FILE: build
       ARTIFACT_DIRECTORY: ARTIFACTS
@@ -51,15 +49,9 @@ jobs:
           InputPath=${{ github.workspace }}^
           ;OutputPath=${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}^
           ;Configuration=${{ env.CONFIGURATION }}^
-      
+            
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.ARTIFACT_FILE }}${{ env.CONFIGURATION }}
           path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
-      
-      # - name: Upload artifacts
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
-      #     name: ${{ github.workflow }}_${{ github.run_number }}_${{ env.CONFIGURATION }}
+          name: ${{ github.workflow }}_${{ github.run_number }}_${{ env.CONFIGURATION }}
