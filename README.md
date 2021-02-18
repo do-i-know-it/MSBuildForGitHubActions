@@ -20,7 +20,6 @@ jobs:
             InputPath=%INPUT_PATH%^
             ;OutputPath=%OUTPUT_PATH%^
             ;Configuration=%CONFIGURATION%^
-            ;BuildNumber=%BUILD_NUMBER%
 ```
 
 ## Future works
