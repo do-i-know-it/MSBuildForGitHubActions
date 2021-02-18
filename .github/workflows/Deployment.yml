@@ -71,7 +71,8 @@ jobs:
         run : |
           rm ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}/*.{pdb,deps.json}
           ls -a ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
-        
+          echo ${GITHUB_REPOSITORY#*/}
+      
       # - name: Create release
       #   id: create_release
       #   uses: actions/create-release@v1.0.0
