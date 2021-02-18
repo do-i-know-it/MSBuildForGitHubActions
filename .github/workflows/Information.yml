@@ -27,4 +27,4 @@ jobs:
         shell: cmd
         run: |
           echo %BUILD_NUMBER%
-          echo %REPOSITORY_NAME%
+          echo ^"%REPOSITORY_NAME%^"
