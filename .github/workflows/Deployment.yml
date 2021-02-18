@@ -11,6 +11,12 @@ on:
     types:
       - closed
 
+env:
+  BUILD_FILE: build
+  MAX_BUILD_NUMBER: 65535
+  ARTIFACT_DIRECTORY: ARTIFACTS
+  CONFIGURATION: Release
+
 jobs:
   validation:
     runs-on: windows-2019
@@ -31,7 +37,7 @@ jobs:
   
   construction:
     runs-on: windows-2019
-    needs: validation
+    # needs: validation
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -40,11 +46,6 @@ jobs:
         uses: microsoft/setup-msbuild@v1.0.2
 
       - name: Configure information
-        env:
-          BUILD_FILE: build
-          MAX_BUILD_NUMBER: 65535
-          ARTIFACT_DIRECTORY: ARTIFACTS
-          CONFIGURATION: Release
         shell: cmd
         run : |
           set /a BUILD_NUMBER=%GITHUB_RUN_NUMBER%%%MAX_BUILD_NUMBER%
@@ -65,4 +66,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
-          name: ${{ env.REPOSITORY_NAME }}_${{ github.workflow }}_${{ github.run_number }}_${{ env.CONFIGURATION }}
+          name: ${{ env.REPOSITORY_NAME }}_${{ github.workflow }}_${{ env.CONFIGURATION }}_${{ github.run_number }}
