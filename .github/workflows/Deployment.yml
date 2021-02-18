@@ -50,8 +50,9 @@ jobs:
         shell: cmd
         run : |
           set /a BUILD_NUMBER=%GITHUB_RUN_NUMBER%%%MAX_COUNT%
-          echo BUILD_NUMBER=%BUILD_NUMBER% >> %GITHUB_ENV%
-          echo REPOSITORY_NAME=%GITHUB_REPOSITORY:${{ github.repository_owner }}/=% >> %GITHUB_ENV%
+          echo BUILD_NUMBER=%BUILD_NUMBER%>> %GITHUB_ENV%
+          set REPOSITORY_NAME=%GITHUB_REPOSITORY:${{ github.repository_owner }}/=%
+          echo REPOSITORY_NAME=%REPOSITORY_NAME%>> %GITHUB_ENV%
 
       - name: Build artifacts
         shell: cmd
