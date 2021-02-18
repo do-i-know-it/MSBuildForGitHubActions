@@ -67,7 +67,8 @@ jobs:
           path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
           name: ${{ github.workflow }}
 
-      - run : ls -a ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
+      - name: hoge
+        run : ls -a ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
 
       # - name: Create release
       #   id: create_release
