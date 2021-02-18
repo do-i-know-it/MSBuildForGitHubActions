@@ -40,7 +40,6 @@ jobs:
       BUILD_FILE: build
       ARTIFACT_DIRECTORY: ARTIFACTS
       CONFIGURATION: Debug
-      ARTIFACT_FILE: MSBuildSampleForGitHubActions
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -55,9 +54,9 @@ jobs:
           InputPath=${{ github.workspace }}^
           ;OutputPath=${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}^
           ;Configuration=${{ env.CONFIGURATION }}^
-      
+            
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.ARTIFACT_FILE }}${{ env.CONFIGURATION }}
           path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
+          name: ${{ github.workflow }}_${{ github.run_number }}_${{ env.CONFIGURATION }}
