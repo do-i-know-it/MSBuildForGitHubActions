@@ -1,0 +1,15 @@
+name: Information
+
+on: push
+
+jobs:
+  information:
+      runs-on: ubuntu-latest
+      steps:
+        - run: |
+          echo $GITHUB_RUN_ID
+          echo $GITHUB_RUN_NUMBER
+          echo $GITHUB_ACTOR
+          echo $GITHUB_REPOSITORY
+          echo ${{ github.repository_owner }}
+          
