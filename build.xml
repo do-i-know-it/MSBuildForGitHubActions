@@ -3,11 +3,12 @@
         <InputPath></InputPath>
         <OutputPath></OutputPath>
         <Configuration></Configuration>
-        <EntryPointFilePath>$(InputPath)/MSBuildSampleForGitHubActions/MSBuildSampleForGitHubActions.csproj</EntryPointFilePath>
-        <ProductVersion>0.0.0</ProductVersion>
-        <BuildVersion>0</BuildVersion>
+        <MajorVersion>0</MajorVersion>
+        <MinorVersion>0</MinorVersion>
+        <Revision>0</Revision>
+        <BuildNumber>0</BuildNumber>
     </PropertyGroup>
-
+    
     <Target Name="Validation">
         <Error Condition="'$(InputPath)' == ''" Text="`InputPath` is empty."/>
         <Error Condition="'$(OutputPath)' == ''" Text="`OutputPath` is empty."/>
@@ -16,14 +17,17 @@
     </Target>
 
     <Target Name="Construction" AfterTargets="Validation">
-        <MSBuild Targets="restore" Projects="$(EntryPointFilePath)" />
-        
-        <MSBuild Projects="$(EntryPointFilePath)"
-            Properties="GenerateDocumentationFile=true;
-                        OutputPath=$(OutputPath);
-                        Configuration=$(Configuration);
-                        Version=$(ProductVersion);
-                        AssemblyVersion=$(ProductVersion).$(BuildVersion)"
-        />
+        <ItemGroup>
+            <EntryPointFilePath Include="$(InputPath)/MSBuildSampleForGitHubActions/MSBuildSampleForGitHubActions.csproj" />
+
+            <BuildProperty Include="GenerateDocumentationFile=true" />
+            <BuildProperty Include="OutputPath=$(OutputPath)" />
+            <BuildProperty Include="Configuration=$(Configuration)" />
+            <BuildProperty Include="Version=$(MajorVersion).$(MinorVersion).$(BuildNumber)" />
+            <BuildProperty Include="AssemblyVersion=$(MajorVersion).$(MinorVersion).$(BuildNumber).$(Revision)" />
+        </ItemGroup>
+
+        <MSBuild Targets="restore" Projects="@(EntryPointFilePath)" Properties="@(BuildProperty)" />
+        <MSBuild Projects="@(EntryPointFilePath)" Properties="@(BuildProperty)" />
     </Target>
 </Project>
