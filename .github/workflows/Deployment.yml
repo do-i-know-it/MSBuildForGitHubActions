@@ -58,6 +58,7 @@ jobs:
     needs: construction
     env:
       ARTIFACT_DIRECTORY: ARTIFACTS
+      ZIP_FILE: output
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -67,11 +68,16 @@ jobs:
           path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
           name: ${{ github.workflow }}
 
-      - name: hoge
+      - name: Arrange output file
+        shell: bash
         run : |
-          rm ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}/*.{pdb,deps.json}
-          ls -a ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
-          echo ${GITHUB_REPOSITORY#*/}
+          rm $GITHUB_WORKSPACE/$ARTIFACT_DIRECTORY/*.{pdb,deps.json}
+          zip -r $ZIP_FILE $ARTIFACT_DIRECTORY
+          ls -a $GITHUB_WORKSPACE/$ARTIFACT_DIRECTORY
+      
+      - name: Configure information
+        shell: bash
+        run : echo ${GITHUB_REPOSITORY#*/} >> $GITHUB_ENV
       
       # - name: Create release
       #   id: create_release
