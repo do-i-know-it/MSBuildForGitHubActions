@@ -22,3 +22,8 @@ jobs:
             ;Configuration=%CONFIGURATION%^
             ;BuildNumber=%BUILD_NUMBER%
 ```
+
+## Future works
+
+- Writes README.md completely.
+- Writes how to set up configuration for another repository.
