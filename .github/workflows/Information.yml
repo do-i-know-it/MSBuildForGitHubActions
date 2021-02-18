@@ -11,7 +11,6 @@ jobs:
           echo $GITHUB_RUN_NUMBER
           echo $GITHUB_ACTOR
           echo $GITHUB_REPOSITORY
-          echo ${{ github.repository_owner }}
   calculation:
     runs-on: windows-latest
     steps:
@@ -28,3 +27,4 @@ jobs:
         run: |
           echo %BUILD_NUMBER%
           echo ^"%REPOSITORY_NAME%^"
+          echo ^"%GITHUB_REPOSITORY%^"
