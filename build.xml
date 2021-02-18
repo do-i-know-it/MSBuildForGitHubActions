@@ -27,7 +27,7 @@
             <BuildProperty Include="AssemblyVersion=$(MajorVersion).$(MinorVersion).$(BuildNumber).$(Revision)" />
         </ItemGroup>
 
-        <MSBuild Targets="restore" Projects="@(EntryPointFilePath)" Properties="@(BuildProperty)" />
+        <MSBuild Targets="restore" Projects="@(EntryPointFilePath)" />
         <MSBuild Projects="@(EntryPointFilePath)" Properties="@(BuildProperty)" />
     </Target>
 </Project>
