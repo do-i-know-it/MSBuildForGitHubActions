@@ -14,10 +14,10 @@ jobs:
           echo ${{ github.repository_owner }}
   calculation:
     runs-on: windows-latest
-    env:
-      MAX_COUNT: 65535
     steps:
       - name: Calculate
+        env:
+          MAX_COUNT: 65535
         shell: cmd
         run: |
           echo %GITHUB_RUN_ID%%%MAX_COUNT%
