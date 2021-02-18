@@ -50,8 +50,7 @@ jobs:
           dotnet msbuild ${{ github.workspace }}/${{ env.BUILD_FILE }}.xml -p:^
           InputPath=${{ github.workspace }}^
           ;OutputPath=${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}^
-          ;Configuration=${{ env.CONFIGURATION }}^
-          ;BuildNumber=${{ github.run_number }}
+          ;Configuration=${{ env.CONFIGURATION }}
       
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
