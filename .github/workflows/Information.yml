@@ -8,8 +8,7 @@ jobs:
       steps:
         - run: |
           echo $GITHUB_RUN_ID
-          echo $GITHUB_RUN_NUMBER
-          echo $GITHUB_ACTOR
-          echo $GITHUB_REPOSITORY
-          echo ${{ github.repository_owner }}
-          
+          # echo $GITHUB_RUN_NUMBER
+          # echo $GITHUB_ACTOR
+          # echo $GITHUB_REPOSITORY
+          # echo ${{ github.repository_owner }}
