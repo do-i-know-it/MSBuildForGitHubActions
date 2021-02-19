@@ -22,9 +22,31 @@ jobs:
             ;Configuration=%CONFIGURATION%^
 ```
 
+Developers can use this action files to
+
+- develop
+- assess
+- deploy
+
+applications, by defining
+
+- `BUILD_FILE_PATH`
+- `INPOUT_PATH`
+- `OUTPUT_PATH`
+- `CONFIGURATION`
+
+in [GitHub Actions](https://github.co.jp/features/actions), and changing
+
+- `EntryPointFilePath`
+- `MajorVersion`
+- `MinorVersion`
+- `Revision`
+- `BuildNumber`
+
+in `build.xml`.
+
 ## Future works
 
-- Writes usage for other repositories.
 - Adds templates.
   - pull request
   - issue
