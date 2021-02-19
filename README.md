@@ -24,5 +24,12 @@ jobs:
 
 ## Future works
 
-- Writes README.md completely.
-- Writes how to set up configuration for another repository.
+- Writes usage for other repositories.
+- Adds templates.
+  - pull request
+  - issue
+- Updates to write release note.
+
+## License
+
+This repository is under the [MIT License](https://opensource.org/licenses/mit-license.php), see [LICENSE](./LICENSE.txt).
