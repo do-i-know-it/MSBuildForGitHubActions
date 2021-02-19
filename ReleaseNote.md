@@ -1,3 +1,3 @@
 # Release notes
 
-release notes for version xxx.
+release notes for version hogehoge.
