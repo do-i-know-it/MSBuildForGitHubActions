@@ -20,7 +20,7 @@ Please describe abstract about improvement report.
 
 ## Solution (Optional)
 
-## Additional information (Optional)
+## Additional context (Optional)
 
 - ex) Error logs
 - ex) Screen shots

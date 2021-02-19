@@ -6,9 +6,9 @@ about: Create a report to help us enhance this project.
 
 Please describe abstract about enhancement report.
 
-## Expected
+## Expected (Required)
 
-## Actual
+## Actual (Required)
 
 ## Solution (Optional)
 
