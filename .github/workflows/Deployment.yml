@@ -63,19 +63,18 @@ jobs:
         run : |
           echo REPOSITORY_NAME=${GITHUB_REPOSITORY#*/} >> $GITHUB_ENV
           echo TAG_NAME=${GITHUB_REF##*/} >> $GITHUB_ENV
-          echo ARTIFACT_DIRECTORY=$REPOSITORY_NAME_$TAG_NAME >> $GITHUB_ENV
 
       - uses: actions/download-artifact@v2
         with:
-          path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}
+          path: ${{ github.workspace }}/${{ env.REPOSITORY_NAME }}_${{ TAG_NAME }}
           name: ${{ github.workflow }}
 
       - name: Create assets
         shell: bash
         run : |
-          rm $GITHUB_WORKSPACE/$ARTIFACT_DIRECTORY/*.{pdb,deps.json}
-          zip -r $GITHUB_WORKSPACE/$ARTIFACT_DIRECTORY $ARTIFACT_DIRECTORY
-          ls -a $GITHUB_WORKSPACE/$ARTIFACT_DIRECTORY
+          rm $GITHUB_WORKSPACE/$REPOSITORY_NAME_$TAG_NAME/*.{pdb,deps.json}
+          zip -r $GITHUB_WORKSPACE/$REPOSITORY_NAME_$TAG_NAME $REPOSITORY_NAME_$TAG_NAME
+          ls -a $GITHUB_WORKSPACE/$REPOSITORY_NAME_$TAG_NAME
       
       - name: Create release
         id: create_release
@@ -95,6 +94,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ github.workspace }}/${{ env.ARTIFACT_DIRECTORY }}.zip
-          asset_name: ${{ env.ARTIFACT_DIRECTORY }}.zip
+          asset_path: ${{ github.workspace }}/${{ env.$REPOSITORY_NAME }}_${{ TAG_NAME }}.zip
+          asset_name: ${{ env.$REPOSITORY_NAME }}_${{ TAG_NAME }}.zip
           asset_content_type: application/zip
