@@ -75,7 +75,7 @@ jobs:
           ASSET_DIRECTORY=${{ env.REPOSITORY_NAME }}_${{ env.TAG_NAME }}
           echo $ASSET_DIRECTORY
           rm $GITHUB_WORKSPACE/$ASSET_DIRECTORY/*.{pdb,deps.json}
-          zip -r $GITHUB_WORKSPACE/$ASSET_DIRECTORY $GITHUB_WORKSPACE/$ASSET_DIRECTORY
+          zip -r ./$ASSET_DIRECTORY $GITHUB_WORKSPACE/$ASSET_DIRECTORY
           ls -a $GITHUB_WORKSPACE
       
       - name: Create release
