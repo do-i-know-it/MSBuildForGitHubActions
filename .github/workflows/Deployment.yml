@@ -73,11 +73,11 @@ jobs:
           path: ./${{ env.ASSET_DIRECTORY }}
           name: ${{ github.workflow }}
 
-      - name: Create assets
+      - name: Assembly assets
         shell: bash
         run : |
           rm ./$ASSET_DIRECTORY/*.{pdb,deps.json}
-          zip $GITHUB_WORKSPACE/$ASSET_DIRECTORY.zip -r ./$ASSET_DIRECTORY
+          zip ./$ASSET_DIRECTORY.zip -r ./$ASSET_DIRECTORY
       
       - name: Create release
         id: create_release
