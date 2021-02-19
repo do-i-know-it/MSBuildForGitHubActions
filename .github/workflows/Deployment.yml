@@ -2,6 +2,8 @@ name: Deployment
 
 on:
   push:
+    branches:
+      - '**'
     tags:
       - version/*
 
@@ -25,7 +27,7 @@ jobs:
   
   construction:
     runs-on: windows-2019
-    needs: validation
+    # needs: validation
     env:
       BUILD_FILE: build
       ARTIFACT_DIRECTORY: ARTIFACTS
@@ -61,8 +63,12 @@ jobs:
       - name: Configure information
         shell: bash
         run : |
-          echo REPOSITORY_NAME=${GITHUB_REPOSITORY#*/} >> $GITHUB_ENV
-          echo TAG_NAME=${GITHUB_REF##*/} >> $GITHUB_ENV
+          REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}
+          TAG_NAME=${GITHUB_REF##*/}
+          echo REPOSITORY_NAME=$REPOSITORY_NAME
+          echo TAG_NAME=$TAG_NAME
+          echo REPOSITORY_NAME=$REPOSITORY_NAME >> $GITHUB_ENV
+          echo TAG_NAME=$TAG_NAME >> $GITHUB_ENV
 
       - uses: actions/download-artifact@v2
         with:
@@ -72,30 +78,31 @@ jobs:
       - name: Create assets
         shell: bash
         run : |
-          ASSET_DIRECTORY=${{ env.REPOSITORY_NAME }}_${{ env.TAG_NAME }}
-          echo $ASSET_DIRECTORY
-          rm $GITHUB_WORKSPACE/$ASSET_DIRECTORY/*.{pdb,deps.json}
-          zip -r ./$ASSET_DIRECTORY $GITHUB_WORKSPACE/$ASSET_DIRECTORY
           ls -a $GITHUB_WORKSPACE
+      # ASSET_DIRECTORY=${{ env.REPOSITORY_NAME }}_${{ env.TAG_NAME }}
+      # echo $ASSET_DIRECTORY
+      # rm $GITHUB_WORKSPACE/$ASSET_DIRECTORY/*.{pdb,deps.json}
+      # zip -r ./$ASSET_DIRECTORY $GITHUB_WORKSPACE/$ASSET_DIRECTORY
+      # ls -a $GITHUB_WORKSPACE
       
-      - name: Create release
-        id: create_release
-        uses: actions/create-release@v1.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ env.TAG_NAME }}
-          draft: false
-          prerelease: false
+      # - name: Create release
+      #   id: create_release
+      #   uses: actions/create-release@v1.0.0
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ github.ref }}
+      #     release_name: Release ${{ env.TAG_NAME }}
+      #     draft: false
+      #     prerelease: false
 
-      - name: Upload assets
-        id: upload-assets
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ github.workspace }}/${{ env.REPOSITORY_NAME }}_${{ env.TAG_NAME }}.zip
-          asset_name: ${{ env.REPOSITORY_NAME }}_${{ env.TAG_NAME }}.zip
-          asset_content_type: application/zip
+      # - name: Upload assets
+      #   id: upload-assets
+      #   uses: actions/upload-release-asset@v1.0.1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: ${{ github.workspace }}/${{ env.REPOSITORY_NAME }}_${{ env.TAG_NAME }}.zip
+      #     asset_name: ${{ env.REPOSITORY_NAME }}_${{ env.TAG_NAME }}.zip
+      #     asset_content_type: application/zip
