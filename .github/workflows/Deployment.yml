@@ -72,9 +72,9 @@ jobs:
       - name: Create assets
         shell: bash
         run : |
+          ls -a $GITHUB_WORKSPACE/$REPOSITORY_NAME_$TAG_NAME
           rm $GITHUB_WORKSPACE/$REPOSITORY_NAME_$TAG_NAME/*.{pdb,deps.json}
           zip -r $GITHUB_WORKSPACE/$REPOSITORY_NAME_$TAG_NAME $REPOSITORY_NAME_$TAG_NAME
-          ls -a $GITHUB_WORKSPACE/$REPOSITORY_NAME_$TAG_NAME
       
       - name: Create release
         id: create_release
