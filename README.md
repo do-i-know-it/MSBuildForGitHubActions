@@ -28,7 +28,6 @@ jobs:
 - Adds templates.
   - pull request
   - issue
-- Updates to write release note.
 
 ## License
 
