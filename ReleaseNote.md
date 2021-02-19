@@ -1,3 +1,3 @@
 # Release notes
 
-release notes for version hogehoge.
+release notes for version *.*.*.
