@@ -72,9 +72,11 @@ jobs:
       - name: Create assets
         shell: bash
         run : |
-          rm ${{ github.workspace }}/${{ env.REPOSITORY_NAME }}_${{ env.TAG_NAME }}/*.{pdb,deps.json}
-          zip -r ${{ github.workspace }}/${{ env.REPOSITORY_NAME }}_${{ env.TAG_NAME }} ${{ env.REPOSITORY_NAME }}_${{ env.TAG_NAME }}
-          ls -a ${{ github.workspace }}/${{ env.REPOSITORY_NAME }}_${{ env.TAG_NAME }}
+          ASSET_DIRECTORY=${{ env.REPOSITORY_NAME }}_${{ env.TAG_NAME }}
+          echo $ASSET_DIRECTORY
+          rm ${{ github.workspace }}/${{ env.ASSET_DIRECTORY }}/*.{pdb,deps.json}
+          zip -r ${{ github.workspace }}/${{ env.ASSET_DIRECTORY }} ${{ env.ASSET_DIRECTORY }}
+          ls -a ${{ github.workspace }}/${{ env.ASSET_DIRECTORY }}
       
       - name: Create release
         id: create_release
