@@ -66,9 +66,6 @@ jobs:
           REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}
           TAG_NAME=${GITHUB_REF##*/}
           ASSET_DIRECTORY=${REPOSITORY_NAME}_${TAG_NAME}
-          echo REPOSITORY_NAME=$REPOSITORY_NAME
-          echo TAG_NAME=$TAG_NAME
-          echo ASSET_DIRECTORY=$ASSET_DIRECTORY
           echo REPOSITORY_NAME=$REPOSITORY_NAME >> $GITHUB_ENV
           echo TAG_NAME=$TAG_NAME >> $GITHUB_ENV
           echo ASSET_DIRECTORY=$ASSET_DIRECTORY >> $GITHUB_ENV
@@ -81,11 +78,10 @@ jobs:
       - name: Create assets
         shell: bash
         run : |
-          ls -a $GITHUB_WORKSPACE/$ASSET_DIRECTORY
           rm $GITHUB_WORKSPACE/$ASSET_DIRECTORY/*.{pdb,deps.json}
           ls -a $GITHUB_WORKSPACE/$ASSET_DIRECTORY
-      # zip -r ./$ASSET_DIRECTORY $GITHUB_WORKSPACE/$ASSET_DIRECTORY
-      # ls -a $GITHUB_WORKSPACE
+          zip -r $GITHUB_WORKSPACE/$ASSET_DIRECTORY.zip $GITHUB_WORKSPACE/$ASSET_DIRECTORY
+          ls -a $GITHUB_WORKSPACE
       
       # - name: Create release
       #   id: create_release
