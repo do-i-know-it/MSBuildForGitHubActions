@@ -1,8 +1,8 @@
 ---
 name: Enhancement report
 about: Create a report to help us enhance this project.
-title: ''
-labels: ''
+title: Enhancement report
+labels: enhancement
 assignees: ''
 
 ---
