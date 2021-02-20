@@ -47,8 +47,7 @@ in `build.xml`.
 
 ## Future works
 
-- Adds templates.
-  - pull request
+- Adds CONTRIBUTING.md.
 
 ## License
 
