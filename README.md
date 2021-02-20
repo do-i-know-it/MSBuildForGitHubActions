@@ -49,7 +49,6 @@ in `build.xml`.
 
 - Adds templates.
   - pull request
-  - issue
 
 ## License
 
